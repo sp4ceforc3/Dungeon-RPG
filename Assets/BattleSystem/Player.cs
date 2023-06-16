@@ -10,7 +10,7 @@ public enum PlayerState {
 public class Player
 {
     // current hitpoints of player
-    private int  hitpoints   = 10;
+    private int hitpoints   = 10;
 
     // player cose to defend
     private bool defending  = false;
@@ -85,14 +85,14 @@ public class Player
         willDodge = false;
 
         if (hitpoints <= 0)
-            ret = PlayerState.DEAD
+            ret = PlayerState.DEAD;
 
         return ret;
     }
 
     //* Player has a chance to dodge attack.
     private void calcDodge() {
-        if (Random.Range(0f,1f) >= dodgeThreshold * skill) 
+        if (Random.Range(0f,1f) >= (1f - dodgeThreshold * skill)) 
             willDodge = true;
         else
             willDodge = false; 

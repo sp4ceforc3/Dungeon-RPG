@@ -1,8 +1,8 @@
 {
-    "name": "BattleInputActions",
+    "name": "BattleControls",
     "maps": [
         {
-            "name": "Player",
+            "name": "Battle",
             "id": "1a8ee643-13ca-4a4e-b3da-1462d2e65dae",
             "actions": [
                 {

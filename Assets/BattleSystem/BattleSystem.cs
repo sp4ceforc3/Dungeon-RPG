@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.InputSystem;
 using System.Collections.Generic;
 
 public class BattleSystem : MonoBehaviour
@@ -13,10 +14,28 @@ public class BattleSystem : MonoBehaviour
     // Audio 
     [SerializeField] AudioSource bgmSrc;
 
+    // Input System to control the battle
+    private BattleControls battleControls;
+
+    // Enble input manager when object is enabled
+    private void OnEnable() {
+        battleControls.Battle.Attack.performed += PlayerAttack;
+        battleControls.Battle.Defend.performed += PlayerDefend;
+        battleControls.Battle.Heal.performed += PlayerHeal;
+        battleControls.Battle.Run.performed += PlayerRun;
+        battleControls.Battle.Godmode.performed += Godmode;
+
+        battleControls.Enable();
+    }
+
+    // Disable input manager when object is disabled
+    private void OnDisable() => battleControls.Disable();
+
     // Awake is called on creation
     void Awake() {
         enemy  = new Enemy(data.hpEnemy, data.maxDmgEnemy, data.minDmgEnemy, data.attackChance);
-        player = new Player(data.hpPlayer, data.maxDmgPlayer, data.minDmgPlayer, data.skillBase, data.dodgeChance); 
+        player = new Player(data.hpPlayer, data.maxDmgPlayer, data.minDmgPlayer, data.skillBase, data.dodgeChance);
+        battleControls = new BattleControls(); 
     }
 
     // Start is called before the first frame update
@@ -25,7 +44,34 @@ public class BattleSystem : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update(){}
+    void Update() {
+        if (playerTurn) {
+            // TODO: Player turn
+        }
+        else {
+            // TODO: Enemy turn
+        }
+    }
+
+    private void PlayerAttack(InputAction.CallbackContext _) {
+        Debug.Log("Player Attack");
+    }
+
+    private void PlayerDefend(InputAction.CallbackContext _) {
+        Debug.Log("Player Defend");
+    }
+
+    private void PlayerHeal(InputAction.CallbackContext _) {
+        Debug.Log("Player Heal");
+    }
+
+    private void PlayerRun(InputAction.CallbackContext _) {
+        Debug.Log("Player Run");
+    }
+
+    private void Godmode(InputAction.CallbackContext _) {
+        Debug.Log("Godmode");
+    }
 }
 
 

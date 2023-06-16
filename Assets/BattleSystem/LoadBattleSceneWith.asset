@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   background: {fileID: 0}
   backgroundMusic: {fileID: 0}
-  enemy: {fileID: 0}
-  hpEnemy: 0
-  maxDmgEnemy: 0
-  minDmgEnemy: 0
-  attackChance: 0
-  hpPlayer: 0
-  maxDmgPlayer: 0
-  minDmgPlayer: 0
-  skillBase: 0
-  dodgeChance: 0
+  enemyPuppet: {fileID: 0}
+  hpEnemy: 10
+  maxDmgEnemy: 4
+  minDmgEnemy: 2
+  attackChance: 0.65
+  hpPlayer: 10
+  maxDmgPlayer: 3
+  minDmgPlayer: 1
+  skillBase: 1
+  dodgeChance: 0.45

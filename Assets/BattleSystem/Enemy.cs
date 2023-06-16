@@ -6,8 +6,8 @@ public class Enemy
     private int hitpoints = 10;
 
     // range of damage the enemy can deal
-    private int maxDmg    = 2;
-    private int minDmg    = 4;
+    private int maxDmg    = 4;
+    private int minDmg    = 2;
 
     // percentage of propability to attack (instead of charging)
     private float attackChance = 0.65f;

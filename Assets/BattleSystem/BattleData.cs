@@ -13,26 +13,26 @@ public class BattleData : ScriptableObject
 
     [Header("Enemy")]
     public GameObject enemyPuppet; // TODO: Animation, Sound and so one
-    public int hpEnemy;
-    public int maxDmgEnemy;
-    public int minDmgEnemy;
+    public int hpEnemy = 10;
+    public int maxDmgEnemy = 4;
+    public int minDmgEnemy = 2;
     [Range(0.1f, 0.9f)]
-    public float attackChance;
+    public float attackChance = 0.65f;
 
     [Header("Player")]
-    public int hpPlayer;
-    public int maxDmgPlayer;
-    public int minDmgPlayer;
+    public int hpPlayer = 10;
+    public int maxDmgPlayer = 3;
+    public int minDmgPlayer = 1;
     [Range(0.5f, 1.5f)]
-    public float skillBase;
+    public float skillBase = 1.0f;
     [Range(0.1f, 0.9f)]
-    public float dodgeChance;
+    public float dodgeChance = 0.45f;
 
     //* Update Battle Data -> specially for Scene creation
     public void UpdateData(BattleData newData) {
         background = newData.background;
         backgroundMusic = newData.backgroundMusic;
-        enemy = newData.enemy;
+        enemyPuppet = newData.enemyPuppet;
         hpEnemy = newData.hpEnemy;
         maxDmgEnemy = newData.maxDmgEnemy;
         minDmgEnemy = newData.minDmgEnemy;
