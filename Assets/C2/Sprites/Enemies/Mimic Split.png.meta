@@ -20,12 +20,11 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
-    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMipmapLimit: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -43,7 +42,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -64,7 +63,6 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
-  swizzle: 50462976
   cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
@@ -117,7 +115,112 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Mimic Split_0
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 309
+        width: 119
+        height: 105
+      alignment: 9
+      pivot: {x: 0.98649585, y: 0.8969802}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b72af41f65f93864fbee320858905829
+      internalID: 1966777703
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mimic Split_1
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 309
+        width: 122
+        height: 103
+      alignment: 9
+      pivot: {x: 0.014078109, y: 0.9181785}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa65c9c4830b8444b87a67c09e7360b9
+      internalID: -1992460820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mimic Split_2
+      rect:
+        serializedVersion: 2
+        x: 341
+        y: 354
+        width: 39
+        height: 22
+      alignment: 9
+      pivot: {x: 0.7850115, y: 0.3526348}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 451a8934531836c4981c063f44ed9035
+      internalID: 1890604384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mimic Split_3
+      rect:
+        serializedVersion: 2
+        x: 413
+        y: 352
+        width: 37
+        height: 23
+      alignment: 9
+      pivot: {x: 0.16631173, y: 0.35263196}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 206f079df993c4c418be00f0026dd4c3
+      internalID: -997997344
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mimic Split_4
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 28
+        width: 185
+        height: 235
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7f4a1a1eebae4f40b1888de565fc051
+      internalID: -287635575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -128,9 +231,15 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
-  mipmapLimitGroupName: 
+    nameFileIdTable:
+      Mimic Split_0: 1966777703
+      Mimic Split_1: -1992460820
+      Mimic Split_2: 1890604384
+      Mimic Split_3: -997997344
+      Mimic Split_4: -287635575
+  spritePackingTag: 
   pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
