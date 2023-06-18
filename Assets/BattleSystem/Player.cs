@@ -10,7 +10,7 @@ public enum PlayerState {
 public class Player
 {
     // current hitpoints of player
-    private int hitpoints   = 10;
+    public int hitpoints   = 10;
 
     // player cose to defend
     private bool defending  = false;

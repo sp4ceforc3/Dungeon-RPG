@@ -1,4 +1,6 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
@@ -15,6 +17,7 @@ public class BattleSystem : MonoBehaviour
 
     // UI
     [SerializeField] SpriteRenderer bgm;
+    [SerializeField] TextMeshProUGUI hpText;
     private Animator anim;
 
     // Audio 
@@ -30,10 +33,10 @@ public class BattleSystem : MonoBehaviour
 
     // Enble input manager when object is enabled
     private void OnEnable() {
-        battleControls.Battle.Attack.performed += PlayerAttack;
-        battleControls.Battle.Defend.performed += PlayerDefend;
-        battleControls.Battle.Heal.performed += PlayerHeal;
-        battleControls.Battle.Run.performed += PlayerRun;
+        battleControls.Battle.Attack.performed += _ => { PlayerAttack(); };
+        battleControls.Battle.Defend.performed += _ => { PlayerDefend(); };
+        battleControls.Battle.Heal.performed += _ => { PlayerHeal(); };
+        battleControls.Battle.Run.performed += _ => { PlayerRun(); };
         battleControls.Battle.Godmode.performed += _ => { godmode = !godmode; };
 
         battleControls.Enable();
@@ -53,6 +56,8 @@ public class BattleSystem : MonoBehaviour
         Vector2 spawnPos = Camera.main.ViewportToWorldPoint(new Vector2(0.5f, 0.5f));
         GameObject puppet = Instantiate(data.enemyPuppet, spawnPos, Quaternion.identity);
         anim = puppet.GetComponent<Animator>();
+
+        hpText.text = $"{player.hitpoints}";
 
         bgmSrc.clip = data.backgroundMusic;
         bgmSrc.Play();
@@ -82,9 +87,14 @@ public class BattleSystem : MonoBehaviour
 
             playerTurn = true;
         }
+
+        hpText.text = $"{player.hitpoints}";
     }
 
-    private void PlayerAttack(InputAction.CallbackContext _) {
+    public void PlayerAttack() {
+
+        Debug.Log("Yes!");
+
         if (playerTurn) {
             int dmg = player.Attack();
 
@@ -98,7 +108,7 @@ public class BattleSystem : MonoBehaviour
         playerTurn = false;
     }
 
-    private void PlayerDefend(InputAction.CallbackContext _) {
+    public void PlayerDefend() {
         if (playerTurn) {
             player.Defend();
 
@@ -107,7 +117,7 @@ public class BattleSystem : MonoBehaviour
         playerTurn = false;
     }
 
-    private void PlayerHeal(InputAction.CallbackContext _) {
+    public void PlayerHeal() {
         if (playerTurn) {
             
             Debug.Log("Player heals 3!");
@@ -118,7 +128,7 @@ public class BattleSystem : MonoBehaviour
         playerTurn = false;
     }
 
-    private void PlayerRun(InputAction.CallbackContext _) {
+    public void PlayerRun() {
         if (playerTurn) {
             sfxSrc.PlayOneShot(runSound, 1f);
             LoadDungeon();
