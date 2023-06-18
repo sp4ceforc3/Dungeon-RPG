@@ -42,14 +42,14 @@ public class Player
         Return:
             int: Amount of damage the enemy should take.
     */
-    public int attack() {
+    public int Attack() {
         int dmg = Random.Range(minDmg, maxDmg);
         skill += 0.05f;
         return dmg;
     }
 
     //* Heal player by 3 HP
-    public void heal() {
+    public void Heal() {
         hitpoints += 3;
         if (hitpoints >= 10)
             hitpoints = 10;
@@ -57,7 +57,7 @@ public class Player
     }
 
     //* Set defending true
-    public void defend() => defending = true;
+    public void Defend() => defending = true;
 
     //* Receive damage from enemy (or not)
     /*
@@ -68,7 +68,7 @@ public class Player
             PlayerState: Indicator if player got Hit, was Defending, 
                          was Dodging or is Dead
     */
-    public PlayerState receiveDamage(int dmg) {
+    public PlayerState ReceiveDamage(int dmg) {
         PlayerState ret;
         
         calcDodge(); // maybe the player can doge

@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class BattleSystem : MonoBehaviour
 {
@@ -10,9 +11,19 @@ public class BattleSystem : MonoBehaviour
     private Enemy enemy;
     private Player player;
     private bool playerTurn;
+    private bool godmode = false;
+
+    // UI
+    [SerializeField] SpriteRenderer bgm;
+    private Animator anim;
 
     // Audio 
     [SerializeField] AudioSource bgmSrc;
+    [SerializeField] AudioSource sfxSrc;
+    [SerializeField] AudioClip runSound;
+    [SerializeField] AudioClip healSound;
+    [SerializeField] AudioClip looseSound;
+    [SerializeField] AudioClip winningSound;
 
     // Input System to control the battle
     private BattleControls battleControls;
@@ -23,7 +34,7 @@ public class BattleSystem : MonoBehaviour
         battleControls.Battle.Defend.performed += PlayerDefend;
         battleControls.Battle.Heal.performed += PlayerHeal;
         battleControls.Battle.Run.performed += PlayerRun;
-        battleControls.Battle.Godmode.performed += Godmode;
+        battleControls.Battle.Godmode.performed += _ => { godmode = !godmode; };
 
         battleControls.Enable();
     }
@@ -36,6 +47,15 @@ public class BattleSystem : MonoBehaviour
         enemy  = new Enemy(data.hpEnemy, data.maxDmgEnemy, data.minDmgEnemy, data.attackChance);
         player = new Player(data.hpPlayer, data.maxDmgPlayer, data.minDmgPlayer, data.skillBase, data.dodgeChance);
         battleControls = new BattleControls(); 
+        bgm.sprite = data.background;
+
+        // spawning puppet
+        Vector2 spawnPos = Camera.main.ViewportToWorldPoint(new Vector2(0.5f, 0.5f));
+        GameObject puppet = Instantiate(data.enemyPuppet, spawnPos, Quaternion.identity);
+        anim = puppet.GetComponent<Animator>();
+
+        bgmSrc.clip = data.backgroundMusic;
+        bgmSrc.Play();
     }
 
     // Start is called before the first frame update
@@ -45,325 +65,67 @@ public class BattleSystem : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
-        if (playerTurn) {
-            // TODO: Player turn
-        }
-        else {
-            // TODO: Enemy turn
+        if (!playerTurn) {
+            int dmg = enemy.Attack();
+            if (dmg > data.maxDmgEnemy)
+                anim.SetTrigger("ChargeAttack");
+            else
+                anim.SetTrigger("Attack");
+
+            Debug.Log($"Enemy attack with {dmg}!");
+
+            PlayerState state = player.ReceiveDamage(dmg);
+            if (state == PlayerState.DEAD && !godmode) {
+                sfxSrc.PlayOneShot(looseSound);
+                LoadDungeon();
+            }
+
+            playerTurn = true;
         }
     }
 
     private void PlayerAttack(InputAction.CallbackContext _) {
-        Debug.Log("Player Attack");
+        if (playerTurn) {
+            int dmg = player.Attack();
+
+            Debug.Log($"Player attacks with {dmg}!");
+
+            if (enemy.ReceiveDamage(dmg)) {
+                sfxSrc.PlayOneShot(winningSound, 1f);
+                LoadDungeon();
+            }
+        }
+        playerTurn = false;
     }
 
     private void PlayerDefend(InputAction.CallbackContext _) {
-        Debug.Log("Player Defend");
+        if (playerTurn) {
+            player.Defend();
+
+            Debug.Log("Player Defend");
+        }
+        playerTurn = false;
     }
 
     private void PlayerHeal(InputAction.CallbackContext _) {
-        Debug.Log("Player Heal");
+        if (playerTurn) {
+            
+            Debug.Log("Player heals 3!");
+
+            player.Heal();
+            sfxSrc.PlayOneShot(healSound, 1f);
+        }
+        playerTurn = false;
     }
 
     private void PlayerRun(InputAction.CallbackContext _) {
-        Debug.Log("Player Run");
+        if (playerTurn) {
+            sfxSrc.PlayOneShot(runSound, 1f);
+            LoadDungeon();
+        }
+        playerTurn = false;
     }
 
-    private void Godmode(InputAction.CallbackContext _) {
-        Debug.Log("Godmode");
-    }
+    // Maybe some more to do 
+    private void LoadDungeon() => SceneManager.LoadScene("DungeonRPG");
 }
-
-
-// public class BattleSystemScript : MonoBehaviour
-// {
-//     int playerHP;
-//     int pmaxHP = 20;
-//     int amaxHP = 30;
-//     int aiHP;
-//     bool playerDefends;
-//     int aiDodgeChance;
-//     bool aiCharges;
-//     bool playerTurn;
-//     bool playerBuff;
-//     bool playerParry;
-//     bool aiBuff;
-
-//     // Start is called before the first frame update
-//     void Start()
-//     {
-//         StartGame();
-//     }
-//     void StartGame()
-//     {
-//         Debug.Log("Game Start! A) Attack | H) Heal | D) Defend | P) Parry | B) Buff");
-
-//         playerHP = pmaxHP;
-//         aiHP = amaxHP;
-//         playerDefends = false;
-//         playerParry = false;
-//         aiCharges = false;
-//         aiDodgeChance = 25;
-//         playerBuff = false;
-//         aiBuff = false;
-//         playerTurn = true;
-//         Debug.Log($"Your HP: {playerHP}  | AI HP: {aiHP} ");
-//     }
-//     void PlayerAction()
-//     {
-//         playerParry = false;
-//         playerDefends = false;
-//         if (Input.GetKeyDown(KeyCode.A))
-//         {
-//             PlayerAttacked();
-
-//         }
-//         else if (Input.GetKeyDown(KeyCode.H))
-//         {
-//             PlayerHeal();
-
-//         }
-//         else if (Input.GetKeyDown(KeyCode.D))
-//         {
-//             PlayerDefend();
-//         }
-//         else if (Input.GetKeyDown(KeyCode.P))
-//         {
-//             PlayerParry();
-//         }
-//         else if (Input.GetKeyDown(KeyCode.B))
-//         {
-//             PlayerBuff();
-//         }
-//         else return;
-//     }
-//     void AIAction()
-//     {
-//         aiBuff = false;
-//         if (aiCharges == true)
-//         {
-//             Debug.Log("AI is charged!!!");
-//             Debug.Log("AI Unleashes OMNISLASH!");
-//             if (playerDefends == true)
-//             {
-//                 Debug.Log("But you Blocked it!!!");
-//                 Debug.Log("The Battle Continues...");
-//                 aiCharges = false;
-//                 playerDefends = false;
-//                 CurrentHP();
-//                 playerTurn = true;
-//             }
-//             else
-//             {
-//                 Debug.Log("AI deals -9999");
-//                 playerHP = 0;
-//                 CurrentHP();
-//             }
-//         }
-//         else
-//         {
-//             int move = Random.Range(1, 101);
-//             if (move > 45)
-//             {
-//                 Debug.Log("AI chooses to Attack!");
-//                 AIAttacked();
-//                 CurrentHP();
-//                 playerTurn = true;
-
-//             }
-//             else if (move <= 20)
-//             {
-//                 Debug.Log("AI chooses to Charge!");
-//                 AICharge();
-//                 CurrentHP();
-//                 playerTurn = true;
-//             }
-//             else if (move <= 35 && move > 20)
-//             {
-//                 Debug.Log("AI chooses to Heal!");
-//                 AIHeal();
-//                 CurrentHP();
-//                 playerTurn = true;
-//             }
-//             else if (move <= 45 && move > 35)
-//             {
-//                 Debug.Log("AI chooses to Buff!");
-//                 AIBuff();
-//                 CurrentHP();
-//                 playerTurn = true;
-//             }
-//         }
-//     }
-
-
-//     void PlayerAttacked()
-//     {
-//         Debug.Log($"You Choose to Attack!");
-//         int aiDodgeProbability = Random.Range(1, 101);
-//         if (aiBuff == true) aiDodgeChance = aiDodgeChance * 2;
-//         int playerAttackDmg = Random.Range(1, 5);
-//         if (aiDodgeProbability < aiDodgeChance)
-//         {
-//             Debug.Log("The AI dodged your Attack!");
-//             playerBuff = false;
-//             playerTurn = false;
-//         }
-//         else
-//         {
-//             if (playerBuff == true)
-//             {
-//                 aiHP = aiHP - playerAttackDmg;
-//                 playerHP = playerHP + playerAttackDmg;
-//                 Debug.Log($"You dealt: {playerAttackDmg} DMG and healed for {playerAttackDmg} HP");
-//                 playerBuff = false;
-//                 playerTurn = false;
-//             }
-//             else if (playerBuff == false)
-//             {
-//                 aiHP = aiHP - playerAttackDmg;
-//                 Debug.Log($"You dealt: {playerAttackDmg} DMG");
-//                 playerTurn = false;
-//             }
-//         }
-//     }
-//     void AIAttacked()
-//     {
-//         int aiAttackDmg = Random.Range(2, 6);
-//         if (playerParry == true)
-//         {
-//             Debug.Log("The AI Attack got parried");
-//             aiHP = aiHP - (2 * aiAttackDmg);
-//             Debug.Log($"AI took {2 * aiAttackDmg} DMG !");
-//         }
-//         else
-//         {
-//             playerHP = playerHP - aiAttackDmg;
-//             Debug.Log($"AI knocked your HP down to {playerHP} !");
-//         }
-//     }
-//     void PlayerHeal()
-//     {
-//         Debug.Log("You Choose to Heal!");
-//         playerHP = playerHP + 3;
-//         if (playerHP > pmaxHP)
-//         {
-//             playerHP = pmaxHP;
-//         }
-//         Debug.Log($"Your HP was restored to {playerHP} !");
-//         playerTurn = false;
-//     }
-
-//     void AIHeal()
-//     {
-//         aiHP = aiHP + 2;
-//         if (aiHP > amaxHP)
-//         {
-//             aiHP = amaxHP;
-//         }
-//     }
-
-//     void PlayerDefend()
-//     {
-//         Debug.Log("You Choose to Defend!");
-//         playerDefends = true;
-//         playerTurn = false;
-//     }
-
-//     void PlayerBuff()
-//     {
-//         Debug.Log("You Choose to Buff!");
-//         if (playerBuff == true)
-//         {
-//             Debug.Log("You're already buffed!");
-//             playerTurn = false;
-//         }
-//         else
-//         {
-//             playerBuff = true;
-//             playerTurn = false;
-//         }
-//     }
-
-//     void AIBuff()
-//     {
-//         aiBuff = true;
-//     }
-
-//     void AICharge()
-//     {
-//         aiCharges = true;
-//     }
-
-//     void CurrentHP()
-//     {
-//         Debug.Log($"Your HP: {playerHP}  | AI HP: {aiHP} ");
-//     }
-
-//     void PlayerParry()
-//     {
-//         Debug.Log("You Choose to Parry!");
-//         int ParryChance = Random.Range(1, 101);
-//         if (ParryChance > 67)
-//         {
-//             playerParry = true;
-//             playerTurn = false;
-//         }
-//         else if (ParryChance <= 67)
-//         {
-//             Debug.Log("The Parry failed!");
-//             playerParry = false;
-//             playerTurn = false;
-//         }
-//     }
-//     void GameOver()
-//     {
-//         if (playerHP < 1)
-//         {
-//             int lastStandChance = Random.Range(1, 101);
-//             if (lastStandChance > 80)
-//             {
-//                 Debug.Log("You got revived with 5 HP!");
-//                 aiCharges = false;
-//                 playerDefends = false;
-//                 playerParry = false;
-//                 playerBuff = false;
-//                 playerHP = 5;
-//                 CurrentHP();
-//                 playerTurn = true;
-
-//             }
-//             else if (lastStandChance < 81)
-//             {
-//                 Debug.Log("You lose!");
-//                 StartGame();
-
-//             }
-
-//         }
-
-//         else if (aiHP < 1)
-//         {
-//             Debug.Log("You won!");
-//             StartGame();
-//         }
-//     }
-
-//     // Update is called once per frame
-//     void Update()
-//     {
-
-//         if (playerTurn)
-//         {
-//             PlayerAction();
-//             GameOver();
-
-//         }
-//         else
-//         {
-//             AIAction();
-//             GameOver();
-//         }
-
-
-//     }
-// }

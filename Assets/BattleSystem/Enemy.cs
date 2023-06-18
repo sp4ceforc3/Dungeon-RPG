@@ -29,11 +29,13 @@ public class Enemy
             int: Amount of damage the enemy will deal.
                  A negative value indicates charging for next round.
     */
-    public int attack() {
+    public int Attack() {
         int dmg = -1;
         if (Random.Range(0f,1f) <= attackChance) {
             // set damage the player will take if not defending
             dmg = Random.Range(minDmg, maxDmg);
+            if (charging)
+                dmg = 999; // instantly kill player
             charging = false; // reset charging of last round
         } else
             charging = true;
@@ -43,10 +45,10 @@ public class Enemy
     //* Receive Damage / Kind of Setter for Enemy's hitpoints
     /*
         Returns:
-            bool: Is the enemy dead or not. True -> Enemy is alive.
+            bool: Is the enemy dead or not. True -> Enemy is dead.
     */
-    public bool receiveDamage(int dmg) {
+    public bool ReceiveDamage(int dmg) {
         hitpoints -= dmg;
-        return 0 >= hitpoints;
+        return hitpoints <= 0;
     }
 }

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public class BattleData : ScriptableObject
 {
     [Header("Scene Informtion")]
-    public SpriteRenderer background;
+    public Sprite background;
     
     [Header("Audio")]
     public AudioClip backgroundMusic;

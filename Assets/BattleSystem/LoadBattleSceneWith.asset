@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be2895b6907ca50f0a5a865ccbd346cd, type: 3}
   m_Name: LoadBattleSceneWith
   m_EditorClassIdentifier: 
-  background: {fileID: 0}
-  backgroundMusic: {fileID: 0}
-  enemyPuppet: {fileID: 0}
+  background: {fileID: 21300000, guid: ab2ede79b7b22474091479a41cf55f9c, type: 3}
+  backgroundMusic: {fileID: 8300000, guid: 8be48f7974d4aab498eaadb1caacd7b6, type: 3}
+  enemyPuppet: {fileID: 38727002599131921, guid: ba18de7a2cbf84732b914590738a47bf, type: 3}
   hpEnemy: 10
   maxDmgEnemy: 4
   minDmgEnemy: 2
