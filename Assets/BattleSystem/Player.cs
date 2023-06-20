@@ -6,7 +6,7 @@ public enum PlayerState {
     DOGED,
     DEAD
 }
-
+    
 public class Player
 {
     // current hitpoints of player

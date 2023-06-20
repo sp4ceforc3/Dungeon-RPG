@@ -18,9 +18,9 @@ MonoBehaviour:
   hpEnemy: 10
   maxDmgEnemy: 4
   minDmgEnemy: 2
-  attackChance: 0.65
+  attackChance: 0.8
   hpPlayer: 10
   maxDmgPlayer: 3
   minDmgPlayer: 1
   skillBase: 1
-  dodgeChance: 0.45
+  dodgeChance: 0.1

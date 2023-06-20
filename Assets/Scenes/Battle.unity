@@ -170,8 +170,10 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 9ae61c02337037fa2baee6fb4c6c267e, type: 2}
   bgm: {fileID: 1637141561}
   hpText: {fileID: 358811239}
+  audioMixer: {fileID: 24100000, guid: 657943e344f5f770ba33eaddba4fe391, type: 2}
   bgmSrc: {fileID: 1126958588}
   sfxSrc: {fileID: 1466422811}
+  attackSound: {fileID: 8300000, guid: 77a32a6a2d593f448bbda10327ce19a5, type: 3}
   runSound: {fileID: 8300000, guid: 77a32a6a2d593f448bbda10327ce19a5, type: 3}
   healSound: {fileID: 8300000, guid: ea7c5c40c953ba343a7f5244bb04d9dc, type: 3}
   looseSound: {fileID: 8300000, guid: 6eb6ce4e29a27914da69d953a02b3911, type: 3}

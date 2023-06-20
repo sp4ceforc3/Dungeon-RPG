@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 using System.Collections;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ public class BattleSystem : MonoBehaviour
     private Player player;
     private bool playerTurn;
     private bool godmode = false;
+    private bool game = true;
 
     // UI
     [SerializeField] SpriteRenderer bgm;
@@ -21,8 +23,10 @@ public class BattleSystem : MonoBehaviour
     private Animator anim;
 
     // Audio 
+    [SerializeField] AudioMixer audioMixer;
     [SerializeField] AudioSource bgmSrc;
     [SerializeField] AudioSource sfxSrc;
+    [SerializeField] AudioClip attackSound;
     [SerializeField] AudioClip runSound;
     [SerializeField] AudioClip healSound;
     [SerializeField] AudioClip looseSound;
@@ -60,29 +64,37 @@ public class BattleSystem : MonoBehaviour
         hpText.text = $"{player.hitpoints}";
 
         bgmSrc.clip = data.backgroundMusic;
+        bgmSrc.mute = false;
         bgmSrc.Play();
+
+        StartCoroutine(FadeMixerGroup.StartFade(audioMixer, "MasterVolume", 2f, 1));
     }
 
     // Start is called before the first frame update
-    void Start() {
-        playerTurn = true;
-    }
+    void Start() => playerTurn = true;
 
     // Update is called once per frame
     void Update() {
-        if (!playerTurn) {
+        if (!playerTurn && game) {
             int dmg = enemy.Attack();
-            if (dmg > data.maxDmgEnemy)
-                anim.SetTrigger("ChargeAttack");
-            else
-                anim.SetTrigger("Attack");
+            if (dmg < 0)
+                Debug.Log($"Enemy is charging!");
+            else {
+                if (dmg > data.maxDmgEnemy)
+                    anim.SetTrigger("ChargeAttack");
+                else 
+                    anim.SetTrigger("Attack");
+                Debug.Log($"Enemy attack with {dmg}!");
 
-            Debug.Log($"Enemy attack with {dmg}!");
-
-            PlayerState state = player.ReceiveDamage(dmg);
-            if (state == PlayerState.DEAD && !godmode) {
-                sfxSrc.PlayOneShot(looseSound);
-                LoadDungeon();
+                PlayerState state = player.ReceiveDamage(dmg);
+                if (state == PlayerState.DEAD && !godmode) {
+                    sfxSrc.PlayOneShot(looseSound);
+                    Debug.Log("Player loose battle...");
+                    game = false;
+                    StartCoroutine(nameof(LoadDungeon));
+                }
+                else if (state == PlayerState.DOGED) Debug.Log("Player doged attack!");
+                else if (state == PlayerState.DEFEND) Debug.Log("Player defended attack!");
             }
 
             playerTurn = true;
@@ -92,17 +104,17 @@ public class BattleSystem : MonoBehaviour
     }
 
     public void PlayerAttack() {
-
-        Debug.Log("Yes!");
-
         if (playerTurn) {
             int dmg = player.Attack();
+            sfxSrc.PlayOneShot(attackSound);
 
             Debug.Log($"Player attacks with {dmg}!");
 
             if (enemy.ReceiveDamage(dmg)) {
                 sfxSrc.PlayOneShot(winningSound, 1f);
-                LoadDungeon();
+                Debug.Log("Player won battle!");
+                game = false;
+                StartCoroutine(nameof(LoadDungeon));
             }
         }
         playerTurn = false;
@@ -111,7 +123,6 @@ public class BattleSystem : MonoBehaviour
     public void PlayerDefend() {
         if (playerTurn) {
             player.Defend();
-
             Debug.Log("Player Defend");
         }
         playerTurn = false;
@@ -119,11 +130,9 @@ public class BattleSystem : MonoBehaviour
 
     public void PlayerHeal() {
         if (playerTurn) {
-            
-            Debug.Log("Player heals 3!");
-
             player.Heal();
             sfxSrc.PlayOneShot(healSound, 1f);
+            Debug.Log("Player heals 3!");
         }
         playerTurn = false;
     }
@@ -131,11 +140,14 @@ public class BattleSystem : MonoBehaviour
     public void PlayerRun() {
         if (playerTurn) {
             sfxSrc.PlayOneShot(runSound, 1f);
-            LoadDungeon();
+            StartCoroutine(nameof(LoadDungeon));
         }
-        playerTurn = false;
     }
 
-    // Maybe some more to do 
-    private void LoadDungeon() => SceneManager.LoadScene("DungeonRPG");
+    private IEnumerator LoadDungeon() {
+        bgmSrc.mute = true;
+        StartCoroutine(FadeMixerGroup.StartFade(audioMixer, "MasterVolume", 1f, 0f));
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene("DungeonRPG");
+    }
 }
