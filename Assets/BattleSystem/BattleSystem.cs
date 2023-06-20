@@ -16,6 +16,7 @@ public class BattleSystem : MonoBehaviour
     private bool playerTurn;
     private bool godmode = false;
     private bool game = true;
+    // private bool inAnimation = false;
 
     // UI
     [SerializeField] SpriteRenderer bgm;
@@ -70,6 +71,10 @@ public class BattleSystem : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
+        // Await all animations before switching turns
+        // inAnimation = anim.GetCurrentAnimatorClipInfo(0)[0].clip.name != "Idle" && !anim.IsInTransition(0) 
+        //             && anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 1;
+
         if (!playerTurn && game) {
             int dmg = enemy.Attack();
             if (dmg < 0)
@@ -99,7 +104,7 @@ public class BattleSystem : MonoBehaviour
     }
 
     public void PlayerAttack() {
-        if (playerTurn) {
+        if (playerTurn && game) {
             int dmg = player.Attack();
             sfxSrc.PlayOneShot(data.attackSound);
 
@@ -111,29 +116,30 @@ public class BattleSystem : MonoBehaviour
                 game = false;
                 StartCoroutine(nameof(LoadDungeon));
             }
+
+            playerTurn = false;
         }
-        playerTurn = false;
     }
 
     public void PlayerDefend() {
-        if (playerTurn) {
+        if (playerTurn && game) {
             player.Defend();
             Debug.Log("Player Defend");
+            playerTurn = false;
         }
-        playerTurn = false;
     }
 
     public void PlayerHeal() {
-        if (playerTurn) {
+        if (playerTurn && game) {
             player.Heal();
             sfxSrc.PlayOneShot(data.healSound, 1f);
             Debug.Log("Player heals 3!");
+            playerTurn = false;
         }
-        playerTurn = false;
     }
 
     public void PlayerRun() {
-        if (playerTurn) {
+        if (playerTurn && game) {
             sfxSrc.PlayOneShot(data.runSound, 1f);
             StartCoroutine(nameof(LoadDungeon));
         }
