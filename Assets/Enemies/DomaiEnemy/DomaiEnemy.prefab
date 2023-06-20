@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3296348603351977149}
   - component: {fileID: 497332527821335478}
   m_Layer: 0
-  m_Name: TreeSplit_0
+  m_Name: Hair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,7 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8928067144707326925}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3296348603351977149
 SpriteRenderer:
@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 6965944128670915445}
   - component: {fileID: 2375765875252680906}
   m_Layer: 0
-  m_Name: TreeSplit_2
+  m_Name: HandL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -122,12 +122,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1692406168081026490}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.41, y: -0.09, z: 0}
+  m_LocalPosition: {x: -0.52, y: -0.010000005, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8928067144707326925}
-  m_RootOrder: 2
+  m_Father: {fileID: 4099452663004092523}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6965944128670915445
 SpriteRenderer:
@@ -191,7 +191,7 @@ SortingGroup:
   m_Enabled: 1
   m_SortingLayerID: 797442725
   m_SortingLayer: 4
-  m_SortingOrder: 1
+  m_SortingOrder: 2
 --- !u!1 &2878687995953257886
 GameObject:
   m_ObjectHideFlags: 0
@@ -204,7 +204,7 @@ GameObject:
   - component: {fileID: 6847535100597843959}
   - component: {fileID: 5020342240074207158}
   m_Layer: 0
-  m_Name: TreeSplit_6
+  m_Name: LegL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -354,7 +354,7 @@ GameObject:
   - component: {fileID: 3931861697479111700}
   - component: {fileID: 5223288284504557290}
   m_Layer: 0
-  m_Name: TreeSplit_1
+  m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -373,7 +373,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8928067144707326925}
-  m_RootOrder: 7
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3931861697479111700
 SpriteRenderer:
@@ -450,7 +450,7 @@ GameObject:
   - component: {fileID: 7284120342312525551}
   - component: {fileID: 603026703528809935}
   m_Layer: 0
-  m_Name: TreeSplit_7
+  m_Name: LegR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -564,8 +564,6 @@ Transform:
   m_Children:
   - {fileID: 6159628943866302145}
   - {fileID: 3535871146353325911}
-  - {fileID: 277746496578868826}
-  - {fileID: 1972192055450638065}
   - {fileID: 4099452663004092523}
   - {fileID: 8121644740901831668}
   - {fileID: 7936466373188449922}
@@ -585,7 +583,7 @@ GameObject:
   - component: {fileID: 4654915993274613650}
   - component: {fileID: 2002472513459013574}
   m_Layer: 0
-  m_Name: TreeSplit_3
+  m_Name: HandR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -599,12 +597,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6595188749994696560}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.45, y: -0.07, z: 0}
+  m_LocalPosition: {x: 0.54, y: -0.030000009, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8928067144707326925}
-  m_RootOrder: 3
+  m_Father: {fileID: 8121644740901831668}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4654915993274613650
 SpriteRenderer:
@@ -668,7 +666,7 @@ SortingGroup:
   m_Enabled: 1
   m_SortingLayerID: 797442725
   m_SortingLayer: 4
-  m_SortingOrder: 1
+  m_SortingOrder: 2
 --- !u!1 &6997565930585004020
 GameObject:
   m_ObjectHideFlags: 0
@@ -679,9 +677,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8121644740901831668}
   - component: {fileID: 1047375247509813935}
-  - component: {fileID: 4352108868595737074}
   m_Layer: 0
-  m_Name: TreeSplit_5
+  m_Name: ArmR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -698,9 +695,10 @@ Transform:
   m_LocalPosition: {x: 0.91, y: -0.04, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1972192055450638065}
   m_Father: {fileID: 8928067144707326925}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1047375247509813935
 SpriteRenderer:
@@ -754,17 +752,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!210 &4352108868595737074
-SortingGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6997565930585004020}
-  m_Enabled: 1
-  m_SortingLayerID: 797442725
-  m_SortingLayer: 4
-  m_SortingOrder: 0
 --- !u!1 &7081586149341763680
 GameObject:
   m_ObjectHideFlags: 0
@@ -775,9 +762,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4099452663004092523}
   - component: {fileID: 8338876451041063292}
-  - component: {fileID: 8608753999540996494}
   m_Layer: 0
-  m_Name: TreeSplit_4
+  m_Name: ArmL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -791,12 +777,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7081586149341763680}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.89, y: -0.08, z: 0}
+  m_LocalPosition: {x: -0.8763063, y: -0.01520431, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 277746496578868826}
   m_Father: {fileID: 8928067144707326925}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8338876451041063292
 SpriteRenderer:
@@ -850,14 +837,3 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!210 &8608753999540996494
-SortingGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7081586149341763680}
-  m_Enabled: 1
-  m_SortingLayerID: 797442725
-  m_SortingLayer: 4
-  m_SortingOrder: 0
