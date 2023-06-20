@@ -26,11 +26,6 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] AudioMixer audioMixer;
     [SerializeField] AudioSource bgmSrc;
     [SerializeField] AudioSource sfxSrc;
-    [SerializeField] AudioClip attackSound;
-    [SerializeField] AudioClip runSound;
-    [SerializeField] AudioClip healSound;
-    [SerializeField] AudioClip looseSound;
-    [SerializeField] AudioClip winningSound;
 
     // Input System to control the battle
     private BattleControls battleControls;
@@ -88,7 +83,7 @@ public class BattleSystem : MonoBehaviour
 
                 PlayerState state = player.ReceiveDamage(dmg);
                 if (state == PlayerState.DEAD && !godmode) {
-                    sfxSrc.PlayOneShot(looseSound);
+                    sfxSrc.PlayOneShot(data.looseSound);
                     Debug.Log("Player loose battle...");
                     game = false;
                     StartCoroutine(nameof(LoadDungeon));
@@ -106,12 +101,12 @@ public class BattleSystem : MonoBehaviour
     public void PlayerAttack() {
         if (playerTurn) {
             int dmg = player.Attack();
-            sfxSrc.PlayOneShot(attackSound);
+            sfxSrc.PlayOneShot(data.attackSound);
 
             Debug.Log($"Player attacks with {dmg}!");
 
             if (enemy.ReceiveDamage(dmg)) {
-                sfxSrc.PlayOneShot(winningSound, 1f);
+                sfxSrc.PlayOneShot(data.winningSound, 1f);
                 Debug.Log("Player won battle!");
                 game = false;
                 StartCoroutine(nameof(LoadDungeon));
@@ -131,7 +126,7 @@ public class BattleSystem : MonoBehaviour
     public void PlayerHeal() {
         if (playerTurn) {
             player.Heal();
-            sfxSrc.PlayOneShot(healSound, 1f);
+            sfxSrc.PlayOneShot(data.healSound, 1f);
             Debug.Log("Player heals 3!");
         }
         playerTurn = false;
@@ -139,7 +134,7 @@ public class BattleSystem : MonoBehaviour
 
     public void PlayerRun() {
         if (playerTurn) {
-            sfxSrc.PlayOneShot(runSound, 1f);
+            sfxSrc.PlayOneShot(data.runSound, 1f);
             StartCoroutine(nameof(LoadDungeon));
         }
     }
@@ -149,5 +144,5 @@ public class BattleSystem : MonoBehaviour
         StartCoroutine(FadeMixerGroup.StartFade(audioMixer, "MasterVolume", 1f, 0f));
         yield return new WaitForSeconds(1f);
         SceneManager.LoadScene("DungeonRPG");
-    }
+    }   
 }

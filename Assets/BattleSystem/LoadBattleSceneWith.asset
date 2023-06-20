@@ -13,12 +13,18 @@ MonoBehaviour:
   m_Name: LoadBattleSceneWith
   m_EditorClassIdentifier: 
   background: {fileID: 21300000, guid: ab2ede79b7b22474091479a41cf55f9c, type: 3}
+  mapPosition: {x: -4.802314, y: -0.4831889, z: 1.757211}
   backgroundMusic: {fileID: 8300000, guid: 8be48f7974d4aab498eaadb1caacd7b6, type: 3}
+  attackSound: {fileID: 8300000, guid: 33e9655e73fe95848aa5adb14512ccc5, type: 3}
+  runSound: {fileID: 8300000, guid: 136897691aa85c448887537afb8d025e, type: 3}
+  healSound: {fileID: 8300000, guid: ea7c5c40c953ba343a7f5244bb04d9dc, type: 3}
+  looseSound: {fileID: 8300000, guid: 6eb6ce4e29a27914da69d953a02b3911, type: 3}
+  winningSound: {fileID: 8300000, guid: 20966c995f73b084c9f5fad19c05019d, type: 3}
   enemyPuppet: {fileID: 38727002599131921, guid: ba18de7a2cbf84732b914590738a47bf, type: 3}
   hpEnemy: 10
   maxDmgEnemy: 4
   minDmgEnemy: 2
-  attackChance: 0.8
+  attackChance: 0.85
   hpPlayer: 10
   maxDmgPlayer: 3
   minDmgPlayer: 1
