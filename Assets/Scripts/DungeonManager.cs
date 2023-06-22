@@ -10,10 +10,10 @@ public class DungeonManager : MonoBehaviour
 
     void Awake() => player.transform.position = battleData.mapPosition;
 
-    //! Just to test Battle Scenes -> Will be handled by Slimes
-    [SerializeField] BattleData testBattle;
-    void Start() { 
-        battleData.UpdateData(testBattle);
-        SceneManager.LoadScene("Battle");
-    }
+    // //! Just to test Battle Scenes -> Will be handled by Slimes
+    // [SerializeField] BattleData testBattle;
+    // void Start() { 
+    //     battleData.UpdateData(testBattle);
+    //     SceneManager.LoadScene("Battle");
+    // }
 }
