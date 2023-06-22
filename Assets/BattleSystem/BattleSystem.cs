@@ -20,6 +20,8 @@ public class BattleSystem : MonoBehaviour
     // UI
     [SerializeField] SpriteRenderer bgm;
     [SerializeField] TextMeshProUGUI hpText;
+    [SerializeField] TextMeshProUGUI battleText;
+    [SerializeField] Transform damagePopUp;
     private Animator anim;
 
     // Audio 
@@ -73,23 +75,16 @@ public class BattleSystem : MonoBehaviour
         if (!playerTurn && game) {
             int dmg = enemy.Attack();
             if (dmg < 0)
-                Debug.Log($"Enemy is charging!");
+                battleText.text = $"Enemy is charging!";
             else {
                 if (dmg > data.maxDmgEnemy)
                     anim.SetTrigger("ChargeAttack");
                 else 
                     anim.SetTrigger("Attack");
-                Debug.Log($"Enemy attack with {dmg}!");
+                battleText.text = $"Enemy attack with {dmg}!";
 
-                PlayerState state = player.ReceiveDamage(dmg);
-                if (state == PlayerState.DEAD && !godmode) {
-                    sfxSrc.PlayOneShot(data.looseSound);
-                    Debug.Log("Player loose battle...");
-                    game = false;
-                    StartCoroutine(nameof(LoadDungeon));
-                }
-                else if (state == PlayerState.DOGED) Debug.Log("Player doged attack!");
-                else if (state == PlayerState.DEFEND) Debug.Log("Player defended attack!");
+                game = false;
+                StartCoroutine(DelayedAttack(anim.GetCurrentAnimatorStateInfo(0).length, dmg));
             }
 
             playerTurn = true;
@@ -99,50 +94,81 @@ public class BattleSystem : MonoBehaviour
     }
 
     public void PlayerAttack() {
-        if (playerTurn) {
+        if (playerTurn && game) {
             int dmg = player.Attack();
             sfxSrc.PlayOneShot(data.attackSound);
+            game = false;
 
-            Debug.Log($"Player attacks with {dmg}!");
+            battleText.text = $"Player attacks with {dmg}!";
 
             if (enemy.ReceiveDamage(dmg)) {
                 sfxSrc.PlayOneShot(data.winningSound, 1f);
-                Debug.Log("Player won battle!");
-                game = false;
-                StartCoroutine(nameof(LoadDungeon));
+                battleText.text = "Player won battle!";
+                anim.SetTrigger("Die");
+                StartCoroutine(LoadDungeon(anim.GetCurrentAnimatorStateInfo(0).length));
+            } else {
+                anim.SetTrigger("Hit");
+                StartCoroutine(DelayedHit(anim.GetCurrentAnimatorStateInfo(0).length, dmg));
             }
         }
-        playerTurn = false;
     }
 
     public void PlayerDefend() {
-        if (playerTurn) {
+        if (playerTurn && game) {
             player.Defend();
-            Debug.Log("Player Defend");
+            battleText.text = "Player Defend";
+            playerTurn = false;
         }
-        playerTurn = false;
     }
 
     public void PlayerHeal() {
-        if (playerTurn) {
+        if (playerTurn && game) {
             player.Heal();
             sfxSrc.PlayOneShot(data.healSound, 1f);
-            Debug.Log("Player heals 3!");
+            battleText.text = "Player heals 3!";
+            playerTurn = false;
         }
-        playerTurn = false;
     }
 
     public void PlayerRun() {
-        if (playerTurn) {
+        if (playerTurn && game) {
             sfxSrc.PlayOneShot(data.runSound, 1f);
-            StartCoroutine(nameof(LoadDungeon));
+            StartCoroutine(LoadDungeon(anim.GetCurrentAnimatorStateInfo(0).length));
         }
     }
 
-    private IEnumerator LoadDungeon() {
+    private IEnumerator LoadDungeon(float delay = 2f) {
         bgmSrc.mute = true;
+        game = false;
         StartCoroutine(FadeMixerGroup.StartFade(audioMixer, "MasterVolume", 1f, 0f));
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(delay);
         SceneManager.LoadScene("DungeonRPG");
-    }   
+    }
+
+    private IEnumerator DelayedAttack(float delay, int dmg) {
+        yield return new WaitForSeconds(delay);
+        PlayerState state = player.ReceiveDamage(dmg);
+        if (state == PlayerState.DEAD && !godmode) {
+            sfxSrc.PlayOneShot(data.looseSound);
+            battleText.text = "Player loose battle...";
+            StartCoroutine(LoadDungeon(anim.GetCurrentAnimatorStateInfo(0).length));
+        }
+        else if (state == PlayerState.DOGED) 
+            battleText.text = "Player doged attack!";
+        else if (state == PlayerState.DEFEND) 
+            battleText.text = "Player defended attack!";
+        game = true;
+    }
+
+    private IEnumerator DelayedHit(float delay, int dmg) {
+        Transform popUpTrans = Instantiate(damagePopUp, data.enemyPuppet.transform.position, Quaternion.identity);
+        TextMeshPro popUpText = popUpTrans.GetComponent<TextMeshPro>();
+        Rigidbody2D popUpRB = popUpTrans.GetComponent<Rigidbody2D>();
+        popUpRB.velocity = Vector2.up;
+        popUpText.SetText($"-{dmg}");
+        Destroy(popUpTrans.gameObject, 1.5f);
+        yield return new WaitForSeconds(delay);
+        game = true;
+        playerTurn = false;
+    }
 }

@@ -31,7 +31,7 @@ public class Enemy
     */
     public int Attack() {
         int dmg = -1;
-        if (Random.Range(0f,1f) <= attackChance) {
+        if (Random.Range(0f,1f) <= attackChance || charging) {
             // set damage the player will take if not defending
             dmg = Random.Range(minDmg, maxDmg);
             if (charging)
