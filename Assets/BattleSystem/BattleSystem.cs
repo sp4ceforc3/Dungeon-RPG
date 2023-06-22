@@ -20,6 +20,7 @@ public class BattleSystem : MonoBehaviour
     // UI
     [SerializeField] SpriteRenderer bgm;
     [SerializeField] TextMeshProUGUI hpText;
+    [SerializeField] TextMeshProUGUI battleText;
     [SerializeField] Transform damagePopUp;
     private Animator anim;
 
@@ -74,13 +75,13 @@ public class BattleSystem : MonoBehaviour
         if (!playerTurn && game) {
             int dmg = enemy.Attack();
             if (dmg < 0)
-                Debug.Log($"Enemy is charging!");
+                battleText.text = $"Enemy is charging!";
             else {
                 if (dmg > data.maxDmgEnemy)
                     anim.SetTrigger("ChargeAttack");
                 else 
                     anim.SetTrigger("Attack");
-                Debug.Log($"Enemy attack with {dmg}!");
+                battleText.text = $"Enemy attack with {dmg}!";
 
                 game = false;
                 StartCoroutine(DelayedAttack(anim.GetCurrentAnimatorStateInfo(0).length, dmg));
@@ -98,11 +99,11 @@ public class BattleSystem : MonoBehaviour
             sfxSrc.PlayOneShot(data.attackSound);
             game = false;
 
-            Debug.Log($"Player attacks with {dmg}!");
+            battleText.text = $"Player attacks with {dmg}!";
 
             if (enemy.ReceiveDamage(dmg)) {
                 sfxSrc.PlayOneShot(data.winningSound, 1f);
-                Debug.Log("Player won battle!");
+                battleText.text = "Player won battle!";
                 anim.SetTrigger("Die");
                 StartCoroutine(LoadDungeon(anim.GetCurrentAnimatorStateInfo(0).length));
             } else {
@@ -115,7 +116,7 @@ public class BattleSystem : MonoBehaviour
     public void PlayerDefend() {
         if (playerTurn && game) {
             player.Defend();
-            Debug.Log("Player Defend");
+            battleText.text = "Player Defend";
             playerTurn = false;
         }
     }
@@ -124,7 +125,7 @@ public class BattleSystem : MonoBehaviour
         if (playerTurn && game) {
             player.Heal();
             sfxSrc.PlayOneShot(data.healSound, 1f);
-            Debug.Log("Player heals 3!");
+            battleText.text = "Player heals 3!";
             playerTurn = false;
         }
     }
@@ -149,13 +150,13 @@ public class BattleSystem : MonoBehaviour
         PlayerState state = player.ReceiveDamage(dmg);
         if (state == PlayerState.DEAD && !godmode) {
             sfxSrc.PlayOneShot(data.looseSound);
-            Debug.Log("Player loose battle...");
+            battleText.text = "Player loose battle...";
             StartCoroutine(LoadDungeon(anim.GetCurrentAnimatorStateInfo(0).length));
         }
         else if (state == PlayerState.DOGED) 
-            Debug.Log("Player doged attack!");
+            battleText.text = "Player doged attack!";
         else if (state == PlayerState.DEFEND) 
-            Debug.Log("Player defended attack!");
+            battleText.text = "Player defended attack!";
         game = true;
     }
 
