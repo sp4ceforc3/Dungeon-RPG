@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be2895b6907ca50f0a5a865ccbd346cd, type: 3}
+  m_Name: TemplateBattleData
+  m_EditorClassIdentifier: 
+  background: {fileID: 21300000, guid: de2ec01990327be43910fdff6616dfa9, type: 3}
+  mapPosition: {x: 0, y: 0, z: 0}
+  backgroundMusic: {fileID: 8300000, guid: 47b9b31e07433db47a23828a863df76b, type: 3}
+  attackSound: {fileID: 8300000, guid: 9e7776061ae0dd042b7d5db62afdee11, type: 3}
+  runSound: {fileID: 8300000, guid: 136897691aa85c448887537afb8d025e, type: 3}
+  healSound: {fileID: 8300000, guid: ea7c5c40c953ba343a7f5244bb04d9dc, type: 3}
+  looseSound: {fileID: 8300000, guid: cbb6965ced368e44e86ed0a5e40f372b, type: 3}
+  winningSound: {fileID: 8300000, guid: 20966c995f73b084c9f5fad19c05019d, type: 3}
+  enemyPuppet: {fileID: 4319496596310071644, guid: af2f00ee3c0011b939bc1ba16f9f122a, type: 3}
+  hpEnemy: 15
+  maxDmgEnemy: 5
+  minDmgEnemy: 1
+  attackChance: 0.85
+  hpPlayer: 10
+  maxDmgPlayer: 3
+  minDmgPlayer: 1
+  skillBase: 1.1
+  dodgeChance: 0.15
