@@ -59,7 +59,7 @@ public class BattleData : ScriptableObject
 
     //* Reset Data to default values
     public void ResetData() {
-        BattleData defaults = new BattleData();
+        BattleData defaults = (BattleData) ScriptableObject.CreateInstance(nameof(BattleData));
         UpdateData(defaults);
     }
 }
