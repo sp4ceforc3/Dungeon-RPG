@@ -7,7 +7,7 @@ public class BattleData : ScriptableObject
 {
     [Header("Scene Informtion")]
     public Sprite background;
-    public Vector3 mapPosition;
+    public Vector3 mapPosition = new Vector3(-4.802314f, -0.4831889f, 1.757211f);
     
     [Header("Audio")]
     public AudioClip backgroundMusic;
@@ -55,5 +55,11 @@ public class BattleData : ScriptableObject
         skillBase = newData.skillBase;
         dodgeChance = newData.dodgeChance;
         mapPosition = newData.mapPosition;
+    }
+
+    //* Reset Data to default values
+    public void ResetData() {
+        BattleData defaults = new BattleData();
+        UpdateData(defaults);
     }
 }
