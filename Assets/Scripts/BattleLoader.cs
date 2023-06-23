@@ -16,6 +16,10 @@ public class BattleLoader : MonoBehaviour
     [SerializeField] AudioMixer audioMixer;
     [SerializeField] AudioSource sfxSrc;
 
+    // Player 
+    [Header("Player")]
+    [SerializeField] GameObject player;
+
     // Input System 
     private InputActions playerControls;
     private bool enterBattle = false;
@@ -29,10 +33,11 @@ public class BattleLoader : MonoBehaviour
         playerControls.Enable();
     }
 
-    private void OnCollisionEnter2D(Collision2D other) {
-        // TODO: Detection is still a bit buggy
-        if (enterBattle) {
-            battle.mapPosition = other.gameObject.transform.position;
+    void Update() {
+        // Solition by: https://discussions.unity.com/t/check-if-player-is-close/69270/2
+        // the player is within a radius of 2 units to this game object
+        if ((player.transform.position - gameObject.transform.position).sqrMagnitude < 9 && enterBattle) {
+            battle.mapPosition = player.transform.position;
             loadBattleSceneWith.UpdateData(battle);
             sfxSrc.PlayOneShot(battle.attackSound, 1f);
             StartCoroutine(nameof(LoadBattle));
@@ -40,6 +45,8 @@ public class BattleLoader : MonoBehaviour
     }
 
     private IEnumerator LoadBattle() {
+        var controls = player.GetComponent<TopDownPlayerController>();
+        controls.playerControls.Disable();
         StartCoroutine(FadeMixerGroup.StartFade(audioMixer, "MasterVolume", 1f, 0f));
         yield return new WaitForSeconds(2f);
         SceneManager.LoadScene("Battle");
