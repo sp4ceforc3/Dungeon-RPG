@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7294263593059850403}
   - component: {fileID: 3077134369939645907}
   - component: {fileID: -328707152447083376}
+  - component: {fileID: 2009013670}
   m_Layer: 0
   m_Name: Slime Big
   m_TagString: Untagged
@@ -31,7 +32,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3077134369939645907
 SpriteRenderer:
@@ -71,8 +72,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 656913329
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 1084767895, guid: d28c024f453cbde47af34b21814cbf6f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -102,3 +103,20 @@ MonoBehaviour:
   - {fileID: 1084767895, guid: d28c024f453cbde47af34b21814cbf6f, type: 3}
   - {fileID: 1580110388, guid: d28c024f453cbde47af34b21814cbf6f, type: 3}
   timeBetweenFrames: 0.17
+--- !u!114 &2009013670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7933517468775064964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4419969829d6feef6a6956c81376b3fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  battle: {fileID: 11400000, guid: e6587f6d69c42084bb19dc273c8e6606, type: 2}
+  loadBattleSceneWith: {fileID: 11400000, guid: 4ec9ff9fdbdff3ef2841d610659b6424, type: 2}
+  audioMixer: {fileID: 24100000, guid: 657943e344f5f770ba33eaddba4fe391, type: 2}
+  sfxSrc: {fileID: 0}
+  player: {fileID: 0}

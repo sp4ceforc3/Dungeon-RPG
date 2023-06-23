@@ -6,7 +6,7 @@ public class TopDownPlayerController : MonoBehaviour
     [SerializeField] float speed = 5f;
     [SerializeField] float runMultiplier = 1.5f;
 
-    InputActions playerControls;
+    public InputActions playerControls;
 
     Rigidbody2D rb;
     Collider2D col;
