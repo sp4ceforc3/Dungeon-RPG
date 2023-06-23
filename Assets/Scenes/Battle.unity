@@ -1808,6 +1808,67 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1001 &1576325873
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 38727002599131920, guid: f036cd6a66e459e4eb132e2e9b61c1c1, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 38727002599131920, guid: f036cd6a66e459e4eb132e2e9b61c1c1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.44
+      objectReference: {fileID: 0}
+    - target: {fileID: 38727002599131920, guid: f036cd6a66e459e4eb132e2e9b61c1c1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 11.98
+      objectReference: {fileID: 0}
+    - target: {fileID: 38727002599131920, guid: f036cd6a66e459e4eb132e2e9b61c1c1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 38727002599131920, guid: f036cd6a66e459e4eb132e2e9b61c1c1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 38727002599131920, guid: f036cd6a66e459e4eb132e2e9b61c1c1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 38727002599131920, guid: f036cd6a66e459e4eb132e2e9b61c1c1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 38727002599131920, guid: f036cd6a66e459e4eb132e2e9b61c1c1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 38727002599131920, guid: f036cd6a66e459e4eb132e2e9b61c1c1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 38727002599131920, guid: f036cd6a66e459e4eb132e2e9b61c1c1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 38727002599131920, guid: f036cd6a66e459e4eb132e2e9b61c1c1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 38727002599131921, guid: f036cd6a66e459e4eb132e2e9b61c1c1, type: 3}
+      propertyPath: m_Name
+      value: Mimic_Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 38727002637897102, guid: f036cd6a66e459e4eb132e2e9b61c1c1, type: 3}
+      propertyPath: moveWithTransform
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f036cd6a66e459e4eb132e2e9b61c1c1, type: 3}
 --- !u!1 &1583929636
 GameObject:
   m_ObjectHideFlags: 0
